@@ -1,0 +1,1419 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        336,
+        832
+      ],
+      "id": "c508ce01-3289-496e-b36b-a3c59368351d",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.limit",
+      "typeVersion": 1,
+      "position": [
+        1744,
+        688
+      ],
+      "id": "6d2e7530-3655-4bd7-8fe7-f77f60d49716",
+      "name": "Limit"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "claude-sonnet-4-6",
+          "cachedResultName": "Claude Sonnet 4.6"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.5,
+      "position": [
+        3168,
+        528
+      ],
+      "id": "8a74b057-6f74-47e6-9d9c-12d8b69f0db6",
+      "name": "Anthropic Chat Model",
+      "credentials": {
+        "anthropicApi": {
+          "id": "EqW4wdbup9MEO1Nj",
+          "name": "Anthropic account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n  \"avg_rating\": 4.2,\n  \"fulfillment_relevant_reviews\": 34,\n\n  \"top_positive_themes\": \"fast delivery; responsive support; reliable tracking\",\n\n  \"top_negative_themes\": \"delayed refunds; damaged packaging; inconsistent communication\",\n\n  \"risk_flags\": \"refund complaints; delivery delays\",\n\n  \"overall_sentiment\": \"Positive\",\n\n  \"sentiment_score\": 3.9,\n\n  \"sentiment_summary\": \"Customers generally report positive logistics experiences with occasional complaints about delays and refunds.\",\n\n  \"matched_status\": \"Auto-matched\",\n\n  \"match_candidates\": \"delivery reliability concerns; customer support gaps; shipment tracking expectations\",\n\n  \"trend\": \"Stable\",\n\n  \"operational_dimensions_detected\": \"logistics & shipping; fulfillment & pick accuracy; order communication; package condition\",\n\n  \"recent_issue_concentration\": \"Majority of complaints within last 90 days\",\n\n  \"recommendation_approach\": \"Focus outreach on solving delivery visibility and customer communication challenges while emphasizing reliability improvements and operational transparency.\",\n\n  \"profile_url\": \"https://www.trustpilot.com/review/example.com\"\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        3296,
+        528
+      ],
+      "id": "8b3693b9-7ba1-4a28-a244-928a36d1555e",
+      "name": "Structured Output Parser"
+    },
+    {
+      "parameters": {
+        "amount": 15
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        3504,
+        304
+      ],
+      "id": "0ecbbc8f-3dd9-49e2-8548-210f75259000",
+      "name": "Wait",
+      "webhookId": "c84e071a-ecc6-4b4c-a14a-845ee107c5a7"
+    },
+    {
+      "parameters": {
+        "eventsUi": {
+          "eventValues": [
+            {
+              "name": "company.propertyChange",
+              "property": "=tp_run_review"
+            }
+          ]
+        },
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.hubspotTrigger",
+      "typeVersion": 1,
+      "position": [
+        -560,
+        832
+      ],
+      "id": "7c90206e-19aa-4364-9387-9e516402066e",
+      "name": "HubSpot Trigger",
+      "webhookId": "9f839170-7546-4c52-9f9c-1cdb5c63a156",
+      "credentials": {
+        "hubspotDeveloperApi": {
+          "id": "UGpEU9wuLVN7qTy9",
+          "name": "HubSpot Developer account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "appToken",
+        "resource": "company",
+        "operation": "get",
+        "companyId": {
+          "__rl": true,
+          "value": "={{ $json.companyId }}",
+          "mode": "id"
+        },
+        "additionalFields": {}
+      },
+      "id": "6b4155b0-264f-4756-81a3-db3133adc8a9",
+      "name": "Get Companies",
+      "type": "n8n-nodes-base.hubspot",
+      "typeVersion": 2.2,
+      "position": [
+        -112,
+        832
+      ],
+      "credentials": {
+        "hubspotAppToken": {
+          "id": "QG3tFx3DQligQZwX",
+          "name": "HubSpot account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "id": "e3e11d16-b653-490a-ba85-6fc14cdd1a8e",
+      "name": "On Error",
+      "type": "n8n-nodes-base.errorTrigger",
+      "position": [
+        -560,
+        1280
+      ],
+      "typeVersion": 1,
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "claude-sonnet-4-6",
+          "cachedResultName": "Claude Sonnet 4.6"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.5,
+      "position": [
+        1696,
+        512
+      ],
+      "id": "e158c423-70ea-4618-822c-88f921f0392d",
+      "name": "Anthropic Chat Model1",
+      "credentials": {
+        "anthropicApi": {
+          "id": "EqW4wdbup9MEO1Nj",
+          "name": "Anthropic account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n\t\"fulfilment_related\": true\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        1824,
+        512
+      ],
+      "id": "bb80d27f-b429-44a2-ba48-d95cc56a15b2",
+      "name": "Structured Output Parser1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "c7299bf1-b187-470b-830f-e5ce935d7870",
+              "name": "fulfilment_related",
+              "value": "={{ $json.output.fulfilment_related }}",
+              "type": "boolean"
+            },
+            {
+              "id": "96c153e6-b50e-4ed0-af46-89fa08aca95e",
+              "name": "title",
+              "value": "={{ $('If1').item.json.title }}",
+              "type": "string"
+            },
+            {
+              "id": "d0ba012b-cd23-4606-984e-d41cbfe5d8b4",
+              "name": "text",
+              "value": "={{ $('If1').item.json.text }}",
+              "type": "string"
+            },
+            {
+              "id": "a0c4f878-ba23-40d2-92f2-e083e6ad1cfd",
+              "name": "rating",
+              "value": "={{ $('If1').item.json.rating }}",
+              "type": "number"
+            },
+            {
+              "id": "d2a45320-871e-4210-a9ef-2a71accebf2b",
+              "name": "dates.publishedDate",
+              "value": "={{ $('If1').item.json.dates.publishedDate }}",
+              "type": "string"
+            },
+            {
+              "id": "e551cb9a-2a36-4adc-ab28-7dd56a9c0585",
+              "name": "businessUrl",
+              "value": "={{ $('If1').item.json.businessUrl }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2032,
+        400
+      ],
+      "id": "862f12ff-2c95-423b-b4b6-36107b236d8c",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "claude-sonnet-4-6",
+          "cachedResultName": "Claude Sonnet 4.6"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.5,
+      "position": [
+        3968,
+        528
+      ],
+      "id": "4c60879a-09a9-4299-8c21-23330f0c0121",
+      "name": "Anthropic Chat Model2",
+      "credentials": {
+        "anthropicApi": {
+          "id": "EqW4wdbup9MEO1Nj",
+          "name": "Anthropic account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n  \"avg_rating\": 4.2,\n  \"fulfillment_relevant_reviews\": 34,\n\n  \"top_positive_themes\": \"fast delivery; responsive support; reliable tracking\",\n\n  \"top_negative_themes\": \"delayed refunds; damaged packaging; inconsistent communication\",\n\n  \"risk_flags\": \"refund complaints; delivery delays\",\n\n  \"overall_sentiment\": \"Positive\",\n\n  \"sentiment_score\": 3.9,\n\n  \"sentiment_summary\": \"Customers generally report positive logistics experiences with occasional complaints about delays and refunds.\",\n\n  \"matched_status\": \"Auto-matched\",\n\n  \"match_candidates\": \"delivery reliability concerns; customer support gaps; shipment tracking expectations\",\n\n  \"trend\": \"Stable\",\n\n  \"operational_dimensions_detected\": \"logistics & shipping; fulfillment & pick accuracy; order communication; package condition\",\n\n  \"recent_issue_concentration\": \"Majority of complaints within last 90 days\",\n\n  \"recommendation_approach\": \"Focus outreach on solving delivery visibility and customer communication challenges while emphasizing reliability improvements and operational transparency.\",\n\n  \"profile_url\": \"https://www.trustpilot.com/review/example.com\"\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        4096,
+        528
+      ],
+      "id": "a48fc1c8-b918-484a-a3e1-c80bc64de7db",
+      "name": "Structured Output Parser2"
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        3728,
+        304
+      ],
+      "id": "496576b0-5463-4c4b-bfe4-a74c40069323",
+      "name": "Aggregate"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "data",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        1232,
+        448
+      ],
+      "id": "c8669c26-4013-44f0-8f3d-32d04828d4a8",
+      "name": "Split Out"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "ce2f2385-1846-410f-81af-453e0e02a21c",
+              "leftValue": "={{ $json.propertyValue }}",
+              "rightValue": "Yes",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "bac9a8cd-f503-4e91-8814-1513959598bb",
+      "name": "Check if tp_run_review = Yes",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -336,
+        832
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "3ecb0d44-0acd-47f0-b327-b9d40965fd75",
+              "leftValue": "={{ $json.properties.website.value }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "dea320b8-2f38-4acc-a15e-b354163754a9",
+      "name": "Check if Website Exists",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        112,
+        832
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://api.apify.com/v2/acts/memo23~trustpilot-scraper-ppe/run-sync-get-dataset-items",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpQueryAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n    \"expandRegionalDomains\": true,\n    \"filterRepliesOnly\": false,\n    \"filterVerifiedOnly\": false,\n    \"includeCompanyAdditionalFields\": false,\n    \"includeCompanyDetails\": false,\n    \"includeStats\": false,\n    \"includeTransparency\": false,\n    \"maxItems\": 1000,\n    \"mobileBearerAllRequests\": false,\n    \"proxy\": {\n        \"useApifyProxy\": true,\n        \"apifyProxyGroups\": [\n            \"RESIDENTIAL\"\n        ]\n    },\n    \"scrapeAllReviews\": true,\n    \"startDate\": \"{{ new Date(Date.now() - 6 * 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0] }}\",\n    \"startUrls\": [\n        \"{{$json.properties.website.value}}\"\n    ]\n}",
+        "options": {}
+      },
+      "id": "1e79680c-5415-4f6f-a9a2-c7509a37087d",
+      "name": "Scrape All Reviews (1000 max)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        560,
+        544
+      ],
+      "credentials": {
+        "httpQueryAuth": {
+          "id": "qL8JNVyOrUQBYeec",
+          "name": "Query Auth account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "options": {}
+      },
+      "id": "77112f2c-91c9-448b-a485-a95df42c87cb",
+      "name": "Combine Scraped Reviews",
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        784,
+        544
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "c65e4965-0193-416b-9420-7e1aa44c3b99",
+              "leftValue": "={{ $json.data.length }}",
+              "rightValue": 100,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "fd481357-41d9-472e-8ae2-b24c3e512977",
+      "name": "Check if More Than 100 Reviews",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1008,
+        544
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "d8c34c80-14d5-4961-84a4-ad844b9fff5e",
+              "leftValue": "={{ $json.message }}",
+              "rightValue": "No results found",
+              "operator": {
+                "type": "string",
+                "operation": "notContains"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "b9229579-1bd6-4cfc-a96e-2868a57614e8",
+      "name": "Check if Reviews Found",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1456,
+        544
+      ]
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are a strict filtering system.\n\nReturn ONLY JSON:\n{\n  \"fulfilment_related\": true/false\n}\n\nA review is ONLY \"true\" if it explicitly mentions ANY of:\n\n1. Logistics & shipping\n2. Delivery delay or speed\n3. Tracking issues\n4. Missing / wrong items\n5. Packaging damage\n6. Temperature / freshness / thawing\n7. Order fulfillment errors\n\nIf not explicitly mentioned → false\n\nDo NOT infer.\nDo NOT assume.\nDo NOT use sentiment.\n\nReview:\nTitle: {{ $json.title }}\nText: {{ $json.text }}",
+        "hasOutputParser": true,
+        "options": {
+          "batching": {
+            "batchSize": 5,
+            "delayBetweenBatches": 5000
+          }
+        }
+      },
+      "id": "23055c8a-30b3-4316-8daf-2d37f6126cd3",
+      "name": "Filter Fulfillment Reviews",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        1680,
+        288
+      ]
+    },
+    {
+      "parameters": {
+        "sortFieldsUi": {
+          "sortField": [
+            {
+              "fieldName": "dates.publishedDate",
+              "order": "descending"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "c4b853c6-824c-4f98-be61-4ac3075343ac",
+      "name": "Sort by Date",
+      "type": "n8n-nodes-base.sort",
+      "typeVersion": 1,
+      "position": [
+        2256,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const inputItems = $input.all();\n\nconst fulfilmentItems = inputItems\n  .filter(i => i.json.fulfilment_related === true)\n  .sort((a, b) => {\n    const dateA = new Date(a.json.dates?.publishedDate || 0).getTime();\n    const dateB = new Date(b.json.dates?.publishedDate || 0).getTime();\n    return dateB - dateA; // newest first\n  });\n\nconst total = inputItems.length;\nconst fulfilmentCount = fulfilmentItems.length;\n\nreturn [\n  {\n    json: {\n      total_reviews: total,\n      fulfilment_relevant_reviews: fulfilmentCount,\n      has_fulfilment_signal: fulfilmentCount > 0,\n      fulfilment_items: fulfilmentItems.map(i => ({\n        title: i.json.title,\n        text: i.json.text,\n        rating: i.json.rating,\n        publishedDate: i.json.dates?.publishedDate,\n        businessUrl: i.json.businessUrl\n      }))\n    }\n  }\n];"
+      },
+      "id": "46a11131-c747-4c81-b1ef-6066c7d1770c",
+      "name": "Count and Sort Fulfillment Reviews",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2480,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "c8464822-3f58-4b8f-a827-9d2f8678134f",
+              "leftValue": "={{ $json.fulfilment_relevant_reviews }}",
+              "rightValue": 5,
+              "operator": {
+                "type": "number",
+                "operation": "gte"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "3f8c9af2-57ef-4a93-8427-1e8d6c745471",
+      "name": "Check if 5+ Fulfillment Reviews",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        2704,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const reviews = $input.first().json.fulfilment_items;\nconst MAX_CHARS = 20000; // ~5,000 tokens per chunk, safe limit\n\nconst chunks = [];\nlet currentChunk = [];\nlet currentLength = 0;\nlet chunkIndex = 1;\n\nfor (const review of reviews) {\n  const formatted = `Title: ${review.title}\nText: ${review.text}\nRating: ${review.rating}/5\nDate: ${review.publishedDate}\nbusinessUrl: ${review.businessUrl}`;\n\n  const reviewLength = formatted.length;\n\n  // If adding this review exceeds limit, save current chunk and start new one\n  if (currentLength + reviewLength > MAX_CHARS && currentChunk.length > 0) {\n    chunks.push({\n      json: {\n        chunk_index: chunkIndex++,\n        review_count: currentChunk.length,\n        char_count: currentLength,\n        formatted_text: currentChunk.join('\\n\\n---\\n\\n')\n      }\n    });\n    currentChunk = [];\n    currentLength = 0;\n  }\n\n  currentChunk.push(formatted);\n  currentLength += reviewLength;\n}\n\n// Push the last remaining chunk\nif (currentChunk.length > 0) {\n  chunks.push({\n    json: {\n      chunk_index: chunkIndex,\n      review_count: currentChunk.length,\n      char_count: currentLength,\n      formatted_text: currentChunk.join('\\n\\n---\\n\\n')\n    }\n  });\n}\n\nreturn chunks;"
+      },
+      "id": "a58a266c-27f5-43fa-a00c-ef7c0c237530",
+      "name": "Chunk Reviews for AI",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2928,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=\nnumber of fulfillment relevant reviews: {{ $json.review_count }}\n\nFulfilment related Reviews Data:{{ $json.formatted_text }}\n\nAssume the role of a perishable product direct-to-consumer fulfillment company leveraging TrustPilot reviews to identify an approach strategy. Prospect companies will either be fulfilling and shipping their products directly to consumers themselves or outsourcing the fulfillment and shipping to a perishable product fulfillment company. Poor reviews mentioning issues with packaging, product thawing or wet, damage, or missing items will indicate a company with an inclination to consider a new perishable fulfillment solution provider.\nConsider the date ranges of the reviews to see if the packages received are improving or declining. Declining sentiment indicates a company with an inclination to consider a new perishable fulfillment solution provider.\n\n\nFor each theme, capture:\n\n\n\nPattern — the operational issue or strength in 5–8 words (e.g. \"Coolant depleted on 2-day ground deliveries to West Coast\")\nFrequency — how many reviews mention it\nSeverity signal — verbatim language strength (\"disgusting,\" \"ruined,\" \"perfect every time\") and star ratings of contributing reviews\nRecency — concentrated in last 30/60/90 days, or spread across longer period\nOne representative pull quote — short, verbatim, no editing\n\n\n\nRanking the top 3\nRank concerns and strengths independently. Use this hierarchy:\n-Frequency — patterns mentioned by the most reviewers rank higher\n-Severity — patterns with stronger language or lower star ratings break frequency ties\n-Recency — recent patterns rank higher than old ones at equal weight (current operational reality matters more than historical)\n-Operational specificity — \"boxes arrived warm\" beats \"shipping issues\"; specific patterns are more actionable for sales than generic ones\n\nWhat to do when data is thin\n\n\n\nFewer than 5 fulfillment-relevant reviews: report insufficient_data for that side (concerns or strengths). Do not invent patterns to fill three slots.\nReviews exist but heavily one-sided (e.g. all positive, no concerns): return what's actually there. Empty arrays are valid and useful.\nAmbiguous fragments: when a review says \"delivery was bad\" with no detail, count it toward a generic logistics concern but don't fabricate the specific failure mode.\n\nTrend can only be any of these options Improving/Stable/Declining/New Baseline\nOnly include logistics or packaging themes if explicitly mentioned in reviews. Do not infer delivery, shipping, packaging, or freshness unless directly referenced.\nKeep each theme field to a maximum of 10 words per theme, semicolon-separated, no numbering.\nReturn ONLY valid enum values for these fields.\n\noverall_sentiment:\n- Positive\n- Neutral\n- Mixed\n- Negative\n- Insufficient Data\n\nmatched_status:\n- Auto-matched\n- Matched-no reviews\n- Needs review\n\ntrend:\n- Improving\n- Stable\n- Declining\n- New Baseline\n\nDo not add explanations, punctuation, or extra text to enum fields.\nPut all explanations in sentiment_summary or recommendation_approach.",
+        "hasOutputParser": true,
+        "options": {
+          "batching": {
+            "batchSize": 1,
+            "delayBetweenBatches": 5000
+          }
+        }
+      },
+      "id": "a0cc4aeb-7896-479b-bc8d-5cd5559375f5",
+      "name": "Analyze Review Chunks",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        3152,
+        304
+      ],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ JSON.stringify( $json.data) }}\n\nYou are consolidating multiple batches of customer fulfillment review analyses into a single final summary\n\nTrend can only be any of these options Improving/Stable/Declining/New Baseline\nOnly include logistics or packaging themes if explicitly mentioned in reviews. Do not infer delivery, shipping, packaging, or freshness unless directly referenced.\nKeep each theme field to a maximum of 10 words per theme, semicolon-separated, no numbering.\nReturn ONLY valid enum values for these fields.\n\noverall_sentiment:\n- Positive\n- Neutral\n- Mixed\n- Negative\n- Insufficient Data\n\nmatched_status:\n- Auto-matched\n- Matched-no reviews\n- Needs review\n\ntrend:\n- Improving\n- Stable\n- Declining\n- New Baseline\n\nDo not add explanations, punctuation, or extra text to enum fields.\nPut all explanations in sentiment_summary or recommendation_approach.",
+        "hasOutputParser": true,
+        "options": {}
+      },
+      "id": "dc591ed5-b76d-4e6a-8d82-dcbe4780cdb2",
+      "name": "Consolidate Analysis",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        3952,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "appToken",
+        "resource": "company",
+        "operation": "update",
+        "companyId": {
+          "__rl": true,
+          "value": "={{ $('Loop Over Items').item.json.companyId }}",
+          "mode": "id"
+        },
+        "updateFields": {
+          "customPropertiesUi": {
+            "customPropertiesValues": [
+              {
+                "property": "trustpilot_avg_rating",
+                "value": "={{ $json.output.avg_rating }}"
+              },
+              {
+                "property": "trustpilot_total_reviews",
+                "value": "={{ $('If2').item.json.total_reviews }}"
+              },
+              {
+                "property": "trustpilot_top_positive_themes",
+                "value": "={{ $json.output.top_positive_themes }}"
+              },
+              {
+                "property": "trustpilot_top_negative_themes",
+                "value": "={{ $json.output.top_negative_themes }}"
+              },
+              {
+                "property": "trustpilot_risk_flags",
+                "value": "={{ $json.output.risk_flags }}"
+              },
+              {
+                "property": "trustpilot_overalll_sentiment",
+                "value": "={{ $json.output.overall_sentiment }}"
+              },
+              {
+                "property": "trustpilot_sentiment_score",
+                "value": "={{ $json.output.sentiment_score }}"
+              },
+              {
+                "property": "trustpilot_sentiment_summary",
+                "value": "={{ $json.output.sentiment_summary }}"
+              },
+              {
+                "property": "trustpilot_matched_status",
+                "value": "={{ $json.output.matched_status }}"
+              },
+              {
+                "property": "trustpilot_match_candidates",
+                "value": "={{ $json.output.match_candidates }}"
+              },
+              {
+                "property": "trustpilot_trend",
+                "value": "={{ $json.output.trend }}"
+              },
+              {
+                "property": "recommended_approach",
+                "value": "={{ $json.output.recommendation_approach }}"
+              },
+              {
+                "property": "trustpilot_profile_url",
+                "value": "={{ $json.output.profile_url }}"
+              },
+              {
+                "property": "trustpilot_last_updated",
+                "value": "={{ new Date(new Date().setUTCHours(0,0,0,0)).getTime() }}"
+              },
+              {
+                "property": "tp_run_review",
+                "value": "No"
+              },
+              {
+                "property": "tp_operational_dimensions_detected",
+                "value": "={{ $json.output.operational_dimensions_detected }}"
+              },
+              {
+                "property": "tp_recent_issue_concentration",
+                "value": "={{ $json.output.recent_issue_concentration }}"
+              },
+              {
+                "property": "tp_fulfillment_relevant_reviews",
+                "value": "={{ $json.output.fulfillment_relevant_reviews }}"
+              }
+            ]
+          }
+        }
+      },
+      "id": "7bfb18d7-e444-42e1-9709-fc56a65fe5ce",
+      "name": "Update HubSpot with Full Analysis",
+      "type": "n8n-nodes-base.hubspot",
+      "typeVersion": 2.2,
+      "position": [
+        4304,
+        624
+      ],
+      "credentials": {
+        "hubspotAppToken": {
+          "id": "QG3tFx3DQligQZwX",
+          "name": "HubSpot account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "appToken",
+        "resource": "company",
+        "operation": "update",
+        "companyId": {
+          "__rl": true,
+          "value": "={{ $('Loop Over Items').item.json.companyId }}",
+          "mode": "id"
+        },
+        "updateFields": {
+          "customPropertiesUi": {
+            "customPropertiesValues": [
+              {
+                "property": "trustpilot_top_positive_themes",
+                "value": "=Insufficient data"
+              },
+              {
+                "property": "trustpilot_top_negative_themes",
+                "value": "=Insufficient data"
+              },
+              {
+                "property": "trustpilot_risk_flags",
+                "value": "=Insufficient data"
+              },
+              {
+                "property": "trustpilot_overalll_sentiment",
+                "value": "=Insufficient Data"
+              },
+              {
+                "property": "trustpilot_sentiment_summary",
+                "value": "=Insufficient data"
+              },
+              {
+                "property": "trustpilot_matched_status",
+                "value": "=Matched-no reviews"
+              },
+              {
+                "property": "trustpilot_match_candidates",
+                "value": "=Insufficient data"
+              },
+              {
+                "property": "recommended_approach",
+                "value": "={{ $json.output.recommendation_approach }}"
+              },
+              {
+                "property": "tp_recent_issue_concentration",
+                "value": "=Insufficient data"
+              },
+              {
+                "property": "tp_run_review",
+                "value": "No"
+              },
+              {
+                "property": "trustpilot_profile_url",
+                "value": "={{ $('Edit Fields').item.json.businessUrl }}"
+              }
+            ]
+          }
+        }
+      },
+      "id": "c3daf5a1-8c2b-4c67-9c1c-012b127678b8",
+      "name": "Update HubSpot - Insufficient Data",
+      "type": "n8n-nodes-base.hubspot",
+      "typeVersion": 2.2,
+      "position": [
+        2928,
+        544
+      ],
+      "credentials": {
+        "hubspotAppToken": {
+          "id": "QG3tFx3DQligQZwX",
+          "name": "HubSpot account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "appToken",
+        "resource": "company",
+        "operation": "update",
+        "companyId": {
+          "__rl": true,
+          "value": "={{ $('Loop Over Items').item.json.companyId }}",
+          "mode": "id"
+        },
+        "updateFields": {
+          "customPropertiesUi": {
+            "customPropertiesValues": [
+              {
+                "property": "trustpilot_last_updated",
+                "value": "={{ new Date(new Date().setUTCHours(0,0,0,0)).getTime() }}"
+              },
+              {
+                "property": "trustpilot_matched_status",
+                "value": "No profile found"
+              },
+              {
+                "property": "tp_run_review",
+                "value": "No"
+              }
+            ]
+          }
+        }
+      },
+      "id": "5522942f-93df-496e-b63a-dc5c0a2457a9",
+      "name": "Update HubSpot - No Profile",
+      "type": "n8n-nodes-base.hubspot",
+      "typeVersion": 2.2,
+      "position": [
+        2032,
+        688
+      ],
+      "credentials": {
+        "hubspotAppToken": {
+          "id": "QG3tFx3DQligQZwX",
+          "name": "HubSpot account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://api.apify.com/v2/acts/memo23~trustpilot-scraper-ppe/run-sync-get-dataset-items?token=api-token",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n    \"expandRegionalDomains\": true,\n    \"filterRepliesOnly\": false,\n    \"filterVerifiedOnly\": false,\n    \"includeCompanyAdditionalFields\": false,\n    \"includeCompanyDetails\": false,\n    \"includeStats\": false,\n    \"includeTransparency\": false,\n    \"maxItems\": 100,\n    \"mobileBearerAllRequests\": false,\n    \"proxy\": {\n        \"useApifyProxy\": true,\n        \"apifyProxyGroups\": [\n            \"RESIDENTIAL\"\n        ]\n    },\n    \"scrapeAllReviews\": true,\n    \"startUrls\": [\n        \"{{$('Loop Over Items').item.json.properties.website.value}}\"\n    ]\n}",
+        "options": {}
+      },
+      "id": "2da6b026-078a-45db-b806-802e9879a296",
+      "name": "Scrape Sample Reviews (100 max)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        1232,
+        688
+      ]
+    },
+    {
+      "parameters": {
+        "keepOnlySet": true,
+        "values": {
+          "string": [
+            {
+              "name": "message",
+              "value": "=⚠️ Workflow `{{$json[\"workflow\"][\"name\"]}}` failed to run! [execution]({{ $json.execution.url }})\n\nmessage: {{ $json.execution.error.message }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "3fc955ff-d291-4a34-964a-86daba85c543",
+      "name": "Format Error Message",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        -336,
+        1280
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Trigger \n\n",
+        "height": 352,
+        "width": 864
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -576,
+        656
+      ],
+      "id": "45cbebad-9799-49f1-abb9-57cee0cdaba0",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "## Review Scraping",
+        "height": 432,
+        "width": 1168,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        432,
+        400
+      ],
+      "typeVersion": 1,
+      "id": "03f8b7f5-3d58-444d-a541-341d2aeab338",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": "## Reviews Filter",
+        "height": 512,
+        "width": 1168,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1664,
+        144
+      ],
+      "typeVersion": 1,
+      "id": "5f32357d-ecc8-4841-8740-01d3ff606127",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "content": "## Review Analysis and Hubsot Update",
+        "height": 592,
+        "width": 1600,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        2912,
+        144
+      ],
+      "typeVersion": 1,
+      "id": "d52178fc-9948-4877-b622-7d7ca2def710",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "content": "**Error Handling",
+        "height": 272,
+        "width": 672,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -640,
+        1184
+      ],
+      "typeVersion": 1,
+      "id": "e24a83f2-c70b-41f9-b1b3-790423957db4",
+      "name": "Sticky Note4"
+    }
+  ],
+  "connections": {
+    "Loop Over Items": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Scrape All Reviews (1000 max)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Limit": {
+      "main": [
+        [
+          {
+            "node": "Update HubSpot - No Profile",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Anthropic Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Analyze Review Chunks",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Analyze Review Chunks",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Aggregate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HubSpot Trigger": {
+      "main": [
+        [
+          {
+            "node": "Check if tp_run_review = Yes",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Companies": {
+      "main": [
+        [
+          {
+            "node": "Check if Website Exists",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On Error": {
+      "main": [
+        [
+          {
+            "node": "Format Error Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Anthropic Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Filter Fulfillment Reviews",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser1": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Filter Fulfillment Reviews",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Sort by Date",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Anthropic Chat Model2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Consolidate Analysis",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser2": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Consolidate Analysis",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate": {
+      "main": [
+        [
+          {
+            "node": "Consolidate Analysis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Check if Reviews Found",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check if tp_run_review = Yes": {
+      "main": [
+        [
+          {
+            "node": "Get Companies",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check if Website Exists": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Scrape All Reviews (1000 max)": {
+      "main": [
+        [
+          {
+            "node": "Combine Scraped Reviews",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Combine Scraped Reviews": {
+      "main": [
+        [
+          {
+            "node": "Check if More Than 100 Reviews",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check if More Than 100 Reviews": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Scrape Sample Reviews (100 max)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check if Reviews Found": {
+      "main": [
+        [
+          {
+            "node": "Filter Fulfillment Reviews",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Limit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter Fulfillment Reviews": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sort by Date": {
+      "main": [
+        [
+          {
+            "node": "Count and Sort Fulfillment Reviews",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Count and Sort Fulfillment Reviews": {
+      "main": [
+        [
+          {
+            "node": "Check if 5+ Fulfillment Reviews",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check if 5+ Fulfillment Reviews": {
+      "main": [
+        [
+          {
+            "node": "Chunk Reviews for AI",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Update HubSpot - Insufficient Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Chunk Reviews for AI": {
+      "main": [
+        [
+          {
+            "node": "Analyze Review Chunks",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Analyze Review Chunks": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Consolidate Analysis": {
+      "main": [
+        [
+          {
+            "node": "Update HubSpot with Full Analysis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update HubSpot with Full Analysis": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update HubSpot - No Profile": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Scrape Sample Reviews (100 max)": {
+      "main": [
+        [
+          {
+            "node": "Check if Reviews Found",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Error Message": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "pinData": {
+    "HubSpot Trigger": [
+      {
+        "eventId": 1407054990,
+        "subscriptionId": 6589853,
+        "portalId": 50984693,
+        "appId": 40346942,
+        "occurredAt": 1779740865145,
+        "subscriptionType": "company.propertyChange",
+        "attemptNumber": 0,
+        "propertyName": "tp_run_review",
+        "propertyValue": "Yes",
+        "changeSource": "INTEGRATION",
+        "sourceId": "37536037",
+        "companyId": 53106055980
+      }
+    ],
+    "On Error": [
+      {
+        "execution": {
+          "id": "371",
+          "url": "https://coldtrack.app.n8n.cloud/workflow/sYaojwjF59RCpyMM/executions/371",
+          "error": {
+            "level": "warning",
+            "tags": {
+              "reWrapped": true
+            },
+            "description": "This request would exceed your organization's rate limit of 30,000 input tokens per minute (org: 62aa07c7-b42e-4159-881e-fccc81012643, model: claude-sonnet-4-6). For details, refer to: https://docs.claude.com/en/api/rate-limits. You can see the response headers for current usage. Reduce the prompt length or the maximum tokens requested, or try again later. View your current limits at https://console.anthropic.com/settings/limits. To raise this limit, purchase credits to advance to the next usage tier at https://console.anthropic.com/settings/billing.",
+            "timestamp": 1779711933027,
+            "context": {},
+            "functionality": "regular",
+            "name": "NodeOperationError",
+            "node": {
+              "parameters": {
+                "aiAgentStarterCallout": "",
+                "promptType": "define",
+                "text": "=You are a strict filtering system.\n\nReturn ONLY JSON:\n{\n  \"fulfilment_related\": true/false\n}\n\nA review is ONLY \"true\" if it explicitly mentions ANY of:\n\n1. Logistics & shipping\n2. Delivery delay or speed\n3. Tracking issues\n4. Missing / wrong items\n5. Packaging damage\n6. Temperature / freshness / thawing\n7. Order fulfillment errors\n\nIf not explicitly mentioned → false\n\nDo NOT infer.\nDo NOT assume.\nDo NOT use sentiment.\n\nReview:\nTitle: {{ $json.title }}\nText: {{ $json.text }}",
+                "hasOutputParser": true,
+                "notice": "",
+                "needsFallback": false,
+                "options": {
+                  "batching": {
+                    "batchSize": 5,
+                    "delayBetweenBatches": 5000
+                  }
+                }
+              },
+              "type": "@n8n/n8n-nodes-langchain.agent",
+              "typeVersion": 3.1,
+              "position": [
+                1008,
+                288
+              ],
+              "id": "642ad492-8a82-4772-823c-778d83c99376",
+              "name": "AI Agent1",
+              "executeOnce": false
+            },
+            "messages": [
+              "429 {\"type\":\"error\",\"error\":{\"type\":\"rate_limit_error\",\"message\":\"This request would exceed your organization's rate limit of 30,000 input tokens per minute (org: 62aa07c7-b42e-4159-881e-fccc81012643, model: claude-sonnet-4-6). For details, refer to: https://docs.claude.com/en/api/rate-limits. You can see the response headers for current usage. Reduce the prompt length or the maximum tokens requested, or try again later. View your current limits at https://console.anthropic.com/settings/limits. To raise this limit, purchase credits to advance to the next usage tier at https://console.anthropic.com/settings/billing.\"},\"request_id\":\"req_011CbPHPDfYtSkqaaCokFHSe\"}\n\nTroubleshooting URL: https://docs.langchain.com/oss/javascript/langchain/errors/MODEL_RATE_LIMIT/\n"
+            ],
+            "message": "The service is receiving too many requests from you",
+            "stack": "NodeOperationError: The service is receiving too many requests from you\n    at /usr/local/lib/node_modules/n8n/node_modules/.pnpm/@n8n+n8n-nodes-langchain@file+packages+@n8n+nodes-langchain_d8896bbac334dcd7b1d92e42db4167d9/node_modules/@n8n/n8n-nodes-langchain/nodes/agents/Agent/agents/ToolsAgent/V3/helpers/executeBatch.ts:117:11\n    at Array.forEach (<anonymous>)\n    at executeBatch (/usr/local/lib/node_modules/n8n/node_modules/.pnpm/@n8n+n8n-nodes-langchain@file+packages+@n8n+nodes-langchain_d8896bbac334dcd7b1d92e42db4167d9/node_modules/@n8n/n8n-nodes-langchain/nodes/agents/Agent/agents/ToolsAgent/V3/helpers/executeBatch.ts:106:15)\n    at processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at ExecuteContext.toolsAgentExecute (/usr/local/lib/node_modules/n8n/node_modules/.pnpm/@n8n+n8n-nodes-langchain@file+packages+@n8n+nodes-langchain_d8896bbac334dcd7b1d92e42db4167d9/node_modules/@n8n/n8n-nodes-langchain/nodes/agents/Agent/agents/ToolsAgent/V3/execute.ts:93:8)\n    at ExecuteContext.execute (/usr/local/lib/node_modules/n8n/node_modules/.pnpm/@n8n+n8n-nodes-langchain@file+packages+@n8n+nodes-langchain_d8896bbac334dcd7b1d92e42db4167d9/node_modules/@n8n/n8n-nodes-langchain/nodes/agents/Agent/V3/AgentV3.node.ts:151:10)\n    at WorkflowExecute.executeNode (/usr/local/lib/node_modules/n8n/node_modules/.pnpm/n8n-core@file+packages+core_@opentelemetry+api@1.9.0_@opentelemetry+exporter-trace-otlp_2c2e1f47b69b34bef6f634a13cbf61d9/node_modules/n8n-core/src/execution-engine/workflow-execute.ts:1048:9)\n    at WorkflowExecute.runNode (/usr/local/lib/node_modules/n8n/node_modules/.pnpm/n8n-core@file+packages+core_@opentelemetry+api@1.9.0_@opentelemetry+exporter-trace-otlp_2c2e1f47b69b34bef6f634a13cbf61d9/node_modules/n8n-core/src/execution-engine/workflow-execute.ts:1239:11)\n    at /usr/local/lib/node_modules/n8n/node_modules/.pnpm/n8n-core@file+packages+core_@opentelemetry+api@1.9.0_@opentelemetry+exporter-trace-otlp_2c2e1f47b69b34bef6f634a13cbf61d9/node_modules/n8n-core/src/execution-engine/workflow-execute.ts:1687:27\n    at /usr/local/lib/node_modules/n8n/node_modules/.pnpm/n8n-core@file+packages+core_@opentelemetry+api@1.9.0_@opentelemetry+exporter-trace-otlp_2c2e1f47b69b34bef6f634a13cbf61d9/node_modules/n8n-core/src/execution-engine/workflow-execute.ts:2339:11"
+          },
+          "lastNodeExecuted": "AI Agent1",
+          "mode": "webhook",
+          "executionContext": {
+            "version": 1,
+            "establishedAt": 1779711786159,
+            "source": "webhook",
+            "redaction": {
+              "version": 1,
+              "policy": "none"
+            },
+            "triggerNode": {
+              "name": "HubSpot Trigger",
+              "type": "n8n-nodes-base.hubspotTrigger"
+            }
+          }
+        },
+        "workflow": {
+          "id": "sYaojwjF59RCpyMM",
+          "name": "HubSpot Connection Test"
+        }
+      }
+    ]
+  },
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "4dbc42dc69efe606df3471fb40f968a142d06ebc7f23c26a2f8bfc6dc19795d0"
+  }
+}
